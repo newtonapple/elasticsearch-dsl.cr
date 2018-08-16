@@ -7,6 +7,13 @@ describe Queries::Match do
       match.field.should eq "age"
       match.query.should eq 10
 
+      full = Search(Queries::Match).from_json(%({"query": {"match": {"height": 100}}}))
+      match = full.query.as(Queries::Match)
+      match.field.should eq "height"
+      match.query.should eq 100
+    end
+
+    it "parses complex match query" do
       full = Search(Queries::Match).from_json <<-J
         {
           "query": {
@@ -24,14 +31,14 @@ describe Queries::Match do
       match.field.should eq "width"
       match.query.class.should eq Queries::Match::Query
       query = match.query.as(Queries::Match::Query)
-      query.query.as(Float).should eq 3.14_f32
-      query.operator.as(String).should eq "and"
-      query.fuzziness.as(Int).should eq 1
+      query.query.should eq 3.14_f32
+      query.operator.should eq "and"
+      query.fuzziness.should eq 1
     end
   end
 
   describe "#to_json" do
-    it "generates JSON for simple 'match' query" do
+    it "generates JSON for simple match query" do
       json = search(Queries::Match) {
         query { match "age", "10" }
       }.to_json
@@ -40,7 +47,7 @@ describe Queries::Match do
       parsed.should eq expected
     end
 
-    it "generates JSON for complex 'match' query" do
+    it "generates JSON for complex match query" do
       json = search(Queries::Match) {
         query {
           match "age" {

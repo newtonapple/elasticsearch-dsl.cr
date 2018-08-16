@@ -15,7 +15,7 @@ describe Queries::MultiMatch do
           }
         }
       }
-      parsed =JSON.parse(query.to_json)
+      parsed = JSON.parse(query.to_json)
       expected = JSON.parse <<-J
         {
           "query": {
