@@ -1,0 +1,9 @@
+name: elasticsearch-dsl
+version: 0.1.0
+
+authors:
+  - David Dai <david.github@gmail.com>
+
+crystal: 0.25.1
+
+license: MIT
