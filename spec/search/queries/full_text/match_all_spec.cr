@@ -1,4 +1,4 @@
-require "../../spec_helper"
+require "../../../spec_helper"
 
 describe Queries::MatchAll do
   describe "#from_json" do

@@ -1,20 +1,20 @@
 module Elasticsearch::DSL::Search::Queries
-  class MultiMatch
-    Macro.mapping(multi_match, {
+  class Match
+    Macro.mapping_with_field_query(match, Type::Scalar, {
       analyzer:             String?,
       boost:                Type::Number?,
       cutoff_frequency:     Type::Float?,
-      fields:               Array(String)?,
       fuzziness:            UInt8 | String?,
       fuzzy_rewrite:        String?,
+      fuzzy_transpositions: Bool?,
+      lenient:              Bool?,
       max_expansions:       Type::UInt?,
       minimum_should_match: Type::Int | String?,
       operator:             String?,
       prefix_length:        Type::UInt?,
-      query:                String?,
-      tie_breaker:          Type::Float?,
+      query:                Type::Scalar?,
+      slop:                 UInt8?,
       type:                 String?,
-      lenient:              Bool?,
       zero_terms_query:     String?,
     })
   end

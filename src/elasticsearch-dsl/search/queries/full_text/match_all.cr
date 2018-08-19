@@ -1,6 +1,6 @@
 module Elasticsearch::DSL::Search::Queries
   class MatchAll
-    Macro.named_mapping(match_all, {
+    Macro.mapping(match_all, {
       boost: Type::Number?,
     })
 

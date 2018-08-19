@@ -1,6 +1,6 @@
 module Elasticsearch::DSL::Macro
   macro mapping(properties)
-    JSON.mapping( {{properties}} )
+    JSON.mapping({{properties}})
     {% for key, type in properties %}
       {% if type.is_a?(HashLiteral) || type.is_a?(NamedTupleLiteral) %}
         def {{key.id}}({{key.id}} : {{type[:type]}})
@@ -26,7 +26,7 @@ module Elasticsearch::DSL::Macro
     Macro.mapping({{properties}})
   end
 
-  macro named_mapping(name, properties)
+  macro mapping(name, properties)
     Macro.mapping({{properties}})
 
     def {{name.id}}
@@ -49,6 +49,99 @@ module Elasticsearch::DSL::Macro
           previous_def(json)
         }
       }
+    end
+  end
+
+  macro mapping_with_field(name, properties)
+    property field : String?
+    Macro.mapping({{properties}})
+
+    def initialize(field : String)
+      self.field = field
+    end
+
+    def initialize(pull : JSON::PullParser)
+      pull.read_object { |{{name}}|
+        if {{name}} != "{{name.id}}"
+          raise "Received \"#{{{name}}}\" instead of \"{{name.id}}\"."
+        end
+        pull.read_object { |field|
+          self.field = field
+          previous_def(pull)
+        }
+      }
+    end
+
+    def to_json(json : JSON::Builder)
+      json.object {
+        json.field "{{name.id}}" {
+          json.object {
+            json.field field {
+              previous_def(pull)
+            }
+          }
+        }
+      }
+    end
+
+    def {{name.id}}(field : String)
+      self.field = field
+      with self yield self
+    end
+  end
+
+  macro mapping_with_field_query(name, alter_type, properties)
+    class Query
+      Macro.mapping({{properties}})
+    end
+
+    alias QueryType = {{alter_type}} | Query
+    property field : String?
+    property query :  QueryType?
+
+    def initialize
+    end
+
+    def initialize(field : String, query : QueryType)
+      {{name.id}}(field, query)
+    end
+
+    def initialize(pull : JSON::PullParser)
+      pull.read_object { |{{name}}|
+        if {{name}} != "{{name.id}}"
+          raise "Received \"#{{{name}}}\" instead of \"{{name.id}}\"."
+        end
+        pull.read_object { |field_name|
+          {{name.id}}(field_name, QueryType.new(pull))
+        }
+      }
+    end
+
+    def to_json(json : JSON::Builder)
+      json.object {
+        json.field "{{name.id}}" {
+          json.object {
+            json.field field, query
+          }
+        }
+      }
+    end
+
+    def {{name.id}}(field : String, query : QueryType)
+      self.field = field
+      self.query = query
+    end
+
+    def {{name.id}}(field : String)
+      self.field = field
+      self.query ||= Query.new
+      with @query.as(Query) yield @query
+    end
+
+    def {{name.id}}!(field : String)
+      self.field = field
+      self.query = Query.new
+      with @query.as(Query) yield @query
     end
   end
 end
