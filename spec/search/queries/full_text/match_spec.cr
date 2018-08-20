@@ -1,46 +1,10 @@
 require "../../../spec_helper"
 
 describe Queries::Match do
-  describe "#from_json" do
-    it "parses simple match query" do
-      match = Queries::Match.from_json(%({"match": {"age": 10}}))
-      match.field.should eq "age"
-      match.query.should eq 10
-
-      full = Search(Queries::Match).from_json(%({"query": {"match": {"height": 100}}}))
-      match = full.query.as(Queries::Match)
-      match.field.should eq "height"
-      match.query.should eq 100
-    end
-
-    it "parses complex match query" do
-      full = Search(Queries::Match).from_json <<-J
-        {
-          "query": {
-            "match": {
-              "width": {
-                "operator": "and",
-                "fuzziness": 1,
-                "query": 3.14
-              }
-            }
-          }
-        }
-      J
-      match = full.query.as(Queries::Match)
-      match.field.should eq "width"
-      match.query.class.should eq Queries::Match::Query
-      query = match.query.as(Queries::Match::Query)
-      query.query.should eq 3.14_f32
-      query.operator.should eq "and"
-      query.fuzziness.should eq 1
-    end
-  end
-
   describe "#to_json" do
     it "generates JSON for simple match query" do
-      json = search(Queries::Match) {
-        query { match "age", "10" }
+      json = search {
+        query(Queries::Match) { match "age", "10" }
       }.to_json
       parsed = JSON.parse(json)
       expected = JSON.parse(%({"query": {"match": {"age":"10"}}}))
@@ -48,8 +12,8 @@ describe Queries::Match do
     end
 
     it "generates JSON for complex match query" do
-      json = search(Queries::Match) {
-        query {
+      json = search {
+        query(Queries::Match) {
           match "age" {
             query "10"
             operator "and"

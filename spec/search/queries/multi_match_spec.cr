@@ -3,8 +3,8 @@ require "../../spec_helper"
 describe Queries::MultiMatch do
   describe "#to_json" do
     it "generates 'multi_match' JSON" do
-      query = search(Queries::MultiMatch) {
-        query {
+      query = search {
+        query(Queries::MultiMatch) {
           multi_match {
             analyzer "standard"
             fields ["*_name^2", "title"]

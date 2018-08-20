@@ -34,14 +34,6 @@ module Elasticsearch::DSL::Macro
       self
     end
 
-    def initialize(pull : JSON::PullParser)
-      pull.read_object { |{{name}}|
-        if {{name}} != "{{name.id}}"
-          raise "Received \"#{{{name}}}\" instead of \"{{name.id}}\"."
-        end
-        previous_def(pull)
-      }
-    end
 
     def to_json(json : JSON::Builder)
       json.object {
@@ -60,17 +52,6 @@ module Elasticsearch::DSL::Macro
       self.field = field
     end
 
-    def initialize(pull : JSON::PullParser)
-      pull.read_object { |{{name}}|
-        if {{name}} != "{{name.id}}"
-          raise "Received \"#{{{name}}}\" instead of \"{{name.id}}\"."
-        end
-        pull.read_object { |field|
-          self.field = field
-          previous_def(pull)
-        }
-      }
-    end
 
     def to_json(json : JSON::Builder)
       json.object {
@@ -104,17 +85,6 @@ module Elasticsearch::DSL::Macro
 
     def initialize(field : String, query : QueryType)
       {{name.id}}(field, query)
-    end
-
-    def initialize(pull : JSON::PullParser)
-      pull.read_object { |{{name}}|
-        if {{name}} != "{{name.id}}"
-          raise "Received \"#{{{name}}}\" instead of \"{{name.id}}\"."
-        end
-        pull.read_object { |field_name|
-          {{name.id}}(field_name, QueryType.new(pull))
-        }
-      }
     end
 
     def to_json(json : JSON::Builder)
