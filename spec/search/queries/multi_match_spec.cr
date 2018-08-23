@@ -3,7 +3,7 @@ require "../../spec_helper"
 describe Queries::MultiMatch do
   describe "#to_json" do
     it "generates 'multi_match' JSON" do
-      query = search {
+      search {
         query(Queries::MultiMatch) {
           multi_match {
             analyzer "standard"
@@ -14,9 +14,7 @@ describe Queries::MultiMatch do
             operator "and"
           }
         }
-      }
-      parsed = JSON.parse(query.to_json)
-      expected = JSON.parse <<-J
+      }.should eq_json_str <<-J
         {
           "query": {
             "multi_match": {
@@ -30,7 +28,6 @@ describe Queries::MultiMatch do
           }
         }
       J
-      parsed.should eq expected
     end
   end
 end

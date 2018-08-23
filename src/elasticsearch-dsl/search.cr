@@ -17,7 +17,8 @@ module Elasticsearch::DSL::Search
     alias QueryType = Queries::MultiMatch |
                       Queries::Match |
                       Queries::MatchAll |
-                      Queries::MatchPhrase
+                      Queries::MatchPhrase |
+                      Queries::MatchPhrasePrefix
 
     Macro.mapping({
       query:   QueryType?,
