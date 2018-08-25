@@ -14,7 +14,8 @@ module Elasticsearch::DSL::Search
   end
 
   class Search
-    alias QueryType = Queries::MultiMatch |
+    alias QueryType = Queries::Common |
+                      Queries::MultiMatch |
                       Queries::Match |
                       Queries::MatchAll |
                       Queries::MatchPhrase |

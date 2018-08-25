@@ -52,13 +52,12 @@ module Elasticsearch::DSL::Macro
       self.field = field
     end
 
-
     def to_json(json : JSON::Builder)
       json.object {
         json.field "{{name.id}}" {
           json.object {
-            json.field field {
-              previous_def(pull)
+            json.field(field) {
+              previous_def(json)
             }
           }
         }
