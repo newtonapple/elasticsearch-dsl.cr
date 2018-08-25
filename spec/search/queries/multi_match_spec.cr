@@ -2,28 +2,42 @@ require "../../spec_helper"
 
 describe Queries::MultiMatch do
   describe "#to_json" do
-    it "generates 'multi_match' JSON" do
+    it "generates multi_match JSON" do
       search {
         query(Queries::MultiMatch) {
           multi_match {
             analyzer "standard"
-            fields ["*_name^2", "title"]
-            query "david"
-            cutoff_frequency 0.01
-            type "phrase"
+            boost 2.5
+            cutoff_frequency 0.001
+            fields ["*_name^2", "title", "first_name", "last_name"]
+            fuzziness "AUTO:3,6"
+            lenient false
+            minimum_should_match 2
             operator "and"
+            prefix_length 3_u64
+            query "david johnson james"
+            tie_breaker 0.3
+            type "best_fields"
+            zero_terms_query "all"
           }
         }
       }.should eq_json_str <<-J
         {
           "query": {
             "multi_match": {
-              "fields": ["*_name^2", "title"],
               "analyzer": "standard",
-              "query": "david",
-              "type": "phrase",
+              "boost": 2.5,
+              "fields": ["*_name^2", "title", "first_name", "last_name"],
+              "query": "david johnson james",
+              "type": "best_fields",
               "operator": "and",
-              "cutoff_frequency": 0.01
+              "minimum_should_match": 2,
+              "cutoff_frequency": 0.001,
+              "fuzziness": "AUTO:3,6",
+              "zero_terms_query": "all",
+              "prefix_length": 3,
+              "tie_breaker": 0.3,
+              "lenient": false
             }
           }
         }

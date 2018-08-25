@@ -3,10 +3,11 @@ module Elasticsearch::DSL::Search::Queries
     Macro.mapping(multi_match, {
       analyzer:             String?,
       boost:                Type::Number?,
-      cutoff_frequency:     Type::Float?,
+      cutoff_frequency:     Type::Number?,
       fields:               Array(String)?,
       fuzziness:            UInt8 | String?,
       fuzzy_rewrite:        String?,
+      lenient:              Bool?,
       max_expansions:       Type::UInt?,
       minimum_should_match: Type::Int | String?,
       operator:             String?,
@@ -14,7 +15,6 @@ module Elasticsearch::DSL::Search::Queries
       query:                String?,
       tie_breaker:          Type::Float?,
       type:                 String?,
-      lenient:              Bool?,
       zero_terms_query:     String?,
     })
   end
