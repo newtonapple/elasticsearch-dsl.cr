@@ -75,14 +75,14 @@ module Elasticsearch::DSL::Macro
       Macro.mapping({{properties}})
     end
 
-    alias QueryType = {{alter_type}} | Query
+    alias Base = {{alter_type}} | Query
     property field : String?
-    property query :  QueryType?
+    property query :  Base?
 
     def initialize
     end
 
-    def initialize(field : String, query : QueryType)
+    def initialize(field : String, query : Base)
       {{name.id}}(field, query)
     end
 
@@ -96,7 +96,7 @@ module Elasticsearch::DSL::Macro
       }
     end
 
-    def {{name.id}}(field : String, query : QueryType)
+    def {{name.id}}(field : String, query : Base)
       self.field = field
       self.query = query
     end

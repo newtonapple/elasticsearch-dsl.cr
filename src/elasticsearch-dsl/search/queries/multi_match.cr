@@ -1,5 +1,5 @@
 module Elasticsearch::DSL::Search::Queries
-  class MultiMatch < QueryType
+  class MultiMatch < Base
     Macro.mapping(multi_match, {
       analyzer:             String?,
       boost:                Type::Number?,

@@ -12,13 +12,13 @@ module Elasticsearch::DSL::Search
   end
 
   module Queries
-    abstract class QueryType
+    abstract class Base
     end
   end
 
   class Search
     Macro.mapping({
-      query:   Queries::QueryType?,
+      query:   Queries::Base?,
       _source: Array(String) | Bool | String?,
     })
 
@@ -28,11 +28,11 @@ module Elasticsearch::DSL::Search
       self.query = q
     end
 
-    def query(q : QueryType)
+    def query(q : Base)
       self.query = q
     end
 
-    def query(q : QueryType, &block)
+    def query(q : Base, &block)
       with q yield q
       self.query = q
     end

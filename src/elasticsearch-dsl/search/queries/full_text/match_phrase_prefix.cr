@@ -1,5 +1,5 @@
 module Elasticsearch::DSL::Search::Queries
-  class MatchPhrasePrefix < QueryType
+  class MatchPhrasePrefix < Base
     Macro.mapping_with_field_query(match_phrase_prefix, String, {
       analyzer:         String?,
       query:            String?,

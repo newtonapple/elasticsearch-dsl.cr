@@ -1,5 +1,5 @@
 module Elasticsearch::DSL::Search::Queries
-  class Match < QueryType
+  class Match < Base
     Macro.mapping_with_field_query(match, Type::Scalar, {
       analyzer:             String?,
       boost:                Type::Number?,

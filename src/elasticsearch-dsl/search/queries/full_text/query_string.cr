@@ -1,5 +1,5 @@
 module Elasticsearch::DSL::Search::Queries
-  class QueryString < QueryType
+  class QueryString < Base
     Macro.mapping(query_string, {
       allow_leading_wildcard:              Bool?,
       analyzer:                            String?,
