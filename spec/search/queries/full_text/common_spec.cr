@@ -2,7 +2,7 @@ require "../../../spec_helper"
 
 describe Queries::Common do
   describe "#to_json" do
-    it "generate simple common query" do
+    it "generate JSON for simple common query" do
       search {
         query(Queries::Common) {
           common "my_body" {
@@ -31,7 +31,7 @@ describe Queries::Common do
     end
   end
 
-  it "generates complex common query" do
+  it "generates JSON for complex common query" do
     search {
       query(Queries::Common) {
         common "content" {

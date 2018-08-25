@@ -1,6 +1,6 @@
 module Elasticsearch::DSL::Search::Queries
-  class QueryString < QueryType
-    Macro.mapping(query_string, {
+  class SimpleQueryString < QueryType
+    Macro.mapping(simple_query_string, {
       allow_leading_wildcard:              Bool?,
       analyzer:                            String?,
       analyze_wildcard:                    Bool?,
@@ -11,6 +11,7 @@ module Elasticsearch::DSL::Search::Queries
       default_field:                       String?,
       default_operator:                    String?,
       enable_position_increments:          Bool?,
+      flags:                               String?,
       fields:                              Array(String)?,
       fuzzy_max_expansions:                Type::UInt?,
       fuzziness:                           UInt8 | String?,

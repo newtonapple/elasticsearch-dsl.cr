@@ -2,7 +2,7 @@ require "../../spec_helper"
 
 describe Queries::MultiMatch do
   describe "#to_json" do
-    it "generates multi_match JSON" do
+    it "generates JSON for multi_match query" do
       search {
         query(Queries::MultiMatch) {
           multi_match {
