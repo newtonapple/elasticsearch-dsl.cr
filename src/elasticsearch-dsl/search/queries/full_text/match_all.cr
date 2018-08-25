@@ -1,5 +1,5 @@
 module Elasticsearch::DSL::Search::Queries
-  class MatchAll
+  class MatchAll < QueryType
     Macro.mapping(match_all, {
       boost: Type::Number?,
     })

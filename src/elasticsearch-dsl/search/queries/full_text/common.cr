@@ -1,5 +1,5 @@
 module Elasticsearch::DSL::Search::Queries
-  class Common
+  class Common < QueryType
     Macro.mapping_with_field(common, {
       analyzer:             String?,
       boost:                Type::Number?,

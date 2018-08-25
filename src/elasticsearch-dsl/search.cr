@@ -1,5 +1,3 @@
-require "./**"
-
 module Elasticsearch::DSL::Search
   def search(&block)
     search = Search.new
@@ -13,16 +11,14 @@ module Elasticsearch::DSL::Search
     search
   end
 
-  class Search
-    alias QueryType = Queries::Common |
-                      Queries::MultiMatch |
-                      Queries::Match |
-                      Queries::MatchAll |
-                      Queries::MatchPhrase |
-                      Queries::MatchPhrasePrefix
+  module Queries
+    abstract class QueryType
+    end
+  end
 
+  class Search
     Macro.mapping({
-      query:   QueryType?,
+      query:   Queries::QueryType?,
       _source: Array(String) | Bool | String?,
     })
 
@@ -42,3 +38,5 @@ module Elasticsearch::DSL::Search
     end
   end
 end
+
+require "./**"
