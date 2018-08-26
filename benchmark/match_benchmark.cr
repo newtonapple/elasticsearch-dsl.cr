@@ -43,8 +43,8 @@ template = template.gsub(/\s+/, "")
 Benchmark.ips(calculation: 5) do |x|
   x.report("Match#to_json") do
     queries.each do |q|
-      search(Queries::Match) {
-        query {
+      search {
+        query(Queries::Match) {
           match q[:field] {
             query q[:query]
             operator q[:operator]
