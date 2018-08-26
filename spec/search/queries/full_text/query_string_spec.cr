@@ -49,18 +49,18 @@ describe Queries::QueryString do
               "default_operator": "and",
               "enable_position_increments": false,
               "fields": ["name", "title"],
-              "fuzzy_max_expansions": 2,
-              "fuzziness": 3,
+              "fuzzy_max_expansions": 5,
+              "fuzziness": 2,
               "fuzzy_rewrite": "constant_score",
               "lenient": true,
-              "max_expansions": 3
+              "max_expansions": 3,
               "max_determinized_states": 10000,
               "minimum_should_match": 5,
               "operator": "and",
-              "phrase_slop": 2
+              "phrase_slop": 2,
               "prefix_length": 3,
               "quote_field_suffix": ".exact",
-              "query": "basketball \"jones\"",
+              "query": "basketball \\\"jones\\\"",
               "quote_analyzer": "keyword_analyzer",
               "tie_breaker": 0.3,
               "type": "cross_fields"
