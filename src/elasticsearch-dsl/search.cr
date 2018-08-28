@@ -36,7 +36,25 @@ module Elasticsearch::DSL::Search
       with q yield q
       self.query = q
     end
+
+    def query
+      with self yield self
+    end
+
   end
 end
 
 require "./**"
+
+module Elasticsearch::DSL::Search
+  class Search
+    {% for query_class in Queries::Base.all_subclasses %}
+      {% method_name = query_class.id.split("::").last.underscore.gsub(/_query$/, "").id %}
+      def {{method_name}}
+        q = {{query_class.id}}.new
+        with q yield q
+        self.query = q
+      end
+    {% end %}
+  end
+end
