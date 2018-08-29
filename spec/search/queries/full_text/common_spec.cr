@@ -13,7 +13,7 @@ describe Queries::Common do
             minimum_should_match "3<-15% 9<-5"
           }
         }
-      }.should eq_json_str <<-J
+      }.should eq_to_json <<-JSON
         {
           "query": {
             "common": {
@@ -27,7 +27,7 @@ describe Queries::Common do
             }
           }
         }
-      J
+      JSON
     end
   end
 
@@ -46,7 +46,7 @@ describe Queries::Common do
           }
         }
       }
-    }.should eq_json_str <<-J
+    }.should eq_to_json <<-JSON
       {
         "query": {
           "common": {
@@ -64,6 +64,6 @@ describe Queries::Common do
           }
         }
       }
-    J
+    JSON
   end
 end

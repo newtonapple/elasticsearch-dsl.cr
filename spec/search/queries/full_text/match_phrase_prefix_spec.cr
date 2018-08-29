@@ -7,7 +7,7 @@ describe Queries::MatchPhrasePrefix do
         query(Queries::MatchPhrasePrefix) {
           match_phrase_prefix "body", "that is the question"
         }
-      }.should eq_json_str %({"query": {"match_phrase_prefix": {"body": "that is the question"}}})
+      }.should eq_to_json %({"query": {"match_phrase_prefix": {"body": "that is the question"}}})
     end
 
     it "generates JSON for match_phrase_prefix with complex query" do
@@ -21,7 +21,7 @@ describe Queries::MatchPhrasePrefix do
             zero_terms_query "all"
           }
         }
-      }.should eq_json_str <<-J
+      }.should eq_to_json <<-JSON
        {
          "query": {
            "match_phrase_prefix": {
@@ -35,7 +35,7 @@ describe Queries::MatchPhrasePrefix do
            }
          }
        }
-     J
+     JSON
     end
   end
 end

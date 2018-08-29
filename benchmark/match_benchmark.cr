@@ -24,20 +24,21 @@ queries = [
   {field: "field", query: 5.7, operator: "and", fuzziness: 1_u8, slop: 1u8},
   {field: "field", query: 125.25, operator: "and", fuzziness: 1_u8, slop: 1u8},
 ]
-template = <<-J
-      {
-        "query": {
-          "match": {
-            "%{field}": {
-              "query": "%{query}",
-              "operator": "%{operator}",
-              "fuzziness": %{fuzziness}
-              }
-            }
-          }
-        }
-      }
-J
+template = <<-JSON
+     {
+       "query": {
+         "match": {
+           "%{field}": {
+             "query": "%{query}",
+             "operator": "%{operator}",
+             "fuzziness": %{fuzziness}
+             }
+           }
+         }
+       }
+     }
+JSON
+
 template = template.gsub(/\s+/, "")
 
 Benchmark.ips(calculation: 5) do |x|

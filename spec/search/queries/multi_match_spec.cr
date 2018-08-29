@@ -21,7 +21,7 @@ describe Queries::MultiMatch do
             zero_terms_query "all"
           }
         }
-      }.should eq_json_str <<-J
+      }.should eq_to_json <<-JSON
         {
           "query": {
             "multi_match": {
@@ -41,7 +41,7 @@ describe Queries::MultiMatch do
             }
           }
         }
-      J
+      JSON
     end
   end
 end

@@ -10,7 +10,7 @@ describe Search do
             query "hello world"
           }
         }
-      }.should eq_json_str <<-J
+      }.should eq_to_json <<-JSON
         {
           "query": {
             "query_string": {
@@ -18,7 +18,7 @@ describe Search do
             }
           }
         }
-      J
+      JSON
     end
 
     it "shortens BoolQuery to bool" do
@@ -34,7 +34,7 @@ describe Search do
             }
           }
         }
-      }.should eq_json_str <<-J
+      }.should eq_to_json <<-JSON
         {
           "query": {
             "bool": {
@@ -54,7 +54,7 @@ describe Search do
             }
           }
         }
-      J
+      JSON
     end
   end
 end

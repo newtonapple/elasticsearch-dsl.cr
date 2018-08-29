@@ -20,7 +20,7 @@ module Spec
   end
 
   module JSONExpectations
-    def eq_json_str(value : String)
+    def eq_to_json(value : String)
       Spec::JSONStringExpectation.new(value)
     end
   end

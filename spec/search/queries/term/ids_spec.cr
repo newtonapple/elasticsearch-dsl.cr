@@ -11,7 +11,7 @@ describe Ids do
             values ["123", "456", "789"]
           }
         }
-      }.should eq_json_str <<-JSON
+      }.should eq_to_json <<-JSON
         {
           "query": {
             "ids": {

@@ -22,7 +22,7 @@ describe BoolQuery do
             should(mp)
           }
         }
-      }.should eq_json_str <<-J
+      }.should eq_to_json <<-JSON
         {
           "query": {
             "bool": {
@@ -46,7 +46,7 @@ describe BoolQuery do
             }
           }
         }
-      J
+      JSON
     end
   end
 end

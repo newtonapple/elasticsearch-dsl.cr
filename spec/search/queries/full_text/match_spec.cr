@@ -5,7 +5,7 @@ describe Queries::Match do
     it "generates JSON for simple match query" do
       search {
         query(Queries::Match) { match "age", "10" }
-      }.should eq_json_str %({"query": {"match": {"age":"10"}}})
+      }.should eq_to_json %({"query": {"match": {"age":"10"}}})
     end
 
     it "generates JSON for complex match query" do
@@ -17,7 +17,7 @@ describe Queries::Match do
             fuzziness 1_u8
           }
         }
-      }.should eq_json_str <<-J
+      }.should eq_to_json <<-JSON
         {
           "query": {
               "match": {
@@ -29,7 +29,7 @@ describe Queries::Match do
             }
           }
         }
-      J
+      JSON
     end
   end
 end

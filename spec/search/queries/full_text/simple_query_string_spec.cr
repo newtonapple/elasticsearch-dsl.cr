@@ -35,7 +35,7 @@ describe Queries::SimpleQueryString do
             type "cross_fields"
           }
         }
-      }.should eq_json_str <<-J
+      }.should eq_to_json <<-JSON
         {
           "query": {
             "simple_query_string": {
@@ -69,7 +69,7 @@ describe Queries::SimpleQueryString do
             }
           }
         }
-      J
+      JSON
     end
   end
 end

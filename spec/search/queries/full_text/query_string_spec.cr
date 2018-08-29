@@ -34,9 +34,9 @@ describe Queries::QueryString do
             type "cross_fields"
           }
         }
-      }.should eq_json_str <<-J
-      {
-        "query": {
+      }.should eq_to_json <<-JSON
+        {
+          "query": {
             "query_string": {
               "allow_leading_wildcard": true,
               "analyzer": "standard",
@@ -67,7 +67,7 @@ describe Queries::QueryString do
             }
           }
         }
-      J
+      JSON
     end
   end
 end
