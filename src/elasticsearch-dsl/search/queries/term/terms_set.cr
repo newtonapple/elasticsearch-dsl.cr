@@ -1,7 +1,7 @@
 module Elasticsearch::DSL::Search::Queries
   #
-  # Terms Set API:
-  # https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-terms-query.html
+  # Terms Set Query API:
+  #   https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-terms-set-query.html
   class TermsSet < Base
     Macro.mapping_with_field(terms_set, {
       terms:                       Type::ScalarArray?, # TODO: confirm terms can be a number
