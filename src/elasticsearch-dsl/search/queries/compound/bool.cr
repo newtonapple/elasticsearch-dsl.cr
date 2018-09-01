@@ -12,8 +12,8 @@ module Elasticsearch::DSL::Search::Queries
     {% for query in %w[must filter must_not should] %}
       def {{query.id}}(query_class : Q.class) forall Q
         q = Q.new
-        {{query.id}}(q)
         with q yield q
+        {{query.id}}(q)
         q
       end
 

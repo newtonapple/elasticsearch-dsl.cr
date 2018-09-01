@@ -7,8 +7,8 @@ module Elasticsearch::DSL::Search::Queries
 
     def filter(query_class : Q.class) forall Q
       q = Q.new
-      filter(q)
       with q yield q
+      filter(q)
       q
     end
   end
