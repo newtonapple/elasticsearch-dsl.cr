@@ -16,7 +16,7 @@ module Elasticsearch::DSL::Search::Queries
     def query(query_class : Q.class) forall Q
       q = Q.new
       with q yield q
-      queries << q.as(Base)
+      queries << q
       q
     end
   end

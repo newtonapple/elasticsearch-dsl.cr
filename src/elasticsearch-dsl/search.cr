@@ -18,21 +18,11 @@ module Elasticsearch::DSL::Search
 
   class Search
     Macro.mapping({
-      query:   Queries::Base?,
+      query:   {type: Queries::Base?, assign_with_yield: true},
       _source: Array(String) | Bool | String?,
     })
 
-    def query(_q : Q.class) forall Q
-      q = Q.new
-      with q yield q
-      self.query = q
-    end
-
-    def query(q : Base)
-      self.query = q
-    end
-
-    def query(q : Base, &block)
+    def query(q : Query::Base, &block)
       with q yield q
       self.query = q
     end
@@ -40,7 +30,6 @@ module Elasticsearch::DSL::Search
     def query
       with self yield self
     end
-
   end
 end
 

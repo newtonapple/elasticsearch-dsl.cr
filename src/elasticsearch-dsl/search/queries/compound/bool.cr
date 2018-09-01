@@ -1,22 +1,18 @@
 module Elasticsearch::DSL::Search::Queries
+  #
+  #  Bool Query AIP:
+  #   https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html
   class BoolQuery < Base
     Macro.mapping(bool, {
-      must:                 Base | Array(Base)?,
-      filter:               Base | Array(Base)?,
-      must_not:             Base | Array(Base)?,
-      should:               Base | Array(Base)?,
+      must:                 {type: Base | Array(Base)?, assign_with_yield: true},
+      filter:               {type: Base | Array(Base)?, assign_with_yield: true},
+      must_not:             {type: Base | Array(Base)?, assign_with_yield: true},
+      should:               {type: Base | Array(Base)?, assign_with_yield: true},
       boost:                Type::Number?,
       minimum_should_match: Type::Int | String?,
     })
 
     {% for query in %w[must filter must_not should] %}
-      def {{query.id}}(query_class : Q.class) forall Q
-        q = Q.new
-        with q yield q
-        {{query.id}}(q)
-        q
-      end
-
       def {{query.id}}(query : Base)
         if {{query.id}}
           if {{query.id}}.is_a?(Array)

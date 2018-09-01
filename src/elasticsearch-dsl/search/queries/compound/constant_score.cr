@@ -1,15 +1,11 @@
 module Elasticsearch::DSL::Search::Queries
+  #
+  # Constant Score Query AIP:
+  #  https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-constant-score-query.html
   class ConstantScore < Base
     Macro.mapping(constant_score, {
       boost:  Type::Number?,
-      filter: Base?,
+      filter: {type: Base?, assign_with_yield: true},
     })
-
-    def filter(query_class : Q.class) forall Q
-      q = Q.new
-      with q yield q
-      filter(q)
-      q
-    end
   end
 end

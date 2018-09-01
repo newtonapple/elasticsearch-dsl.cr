@@ -3,14 +3,20 @@ module Elasticsearch::DSL::Macro
     JSON.mapping({{properties}})
     {% for key, type in properties %}
       {% if type.is_a?(HashLiteral) || type.is_a?(NamedTupleLiteral) %}
-        def {{key.id}}({{key.id}} : {{type[:type]}})
-          self.{{key.id}} = {{key.id}}
-        end
-      {% else %}
-        def {{key.id}}({{key.id}} : {{type}})
-          self.{{key.id}} = {{key.id}}
-        end
+        {% if type[:assign_with_yield] %}
+          def {{key.id}}(_q : Q.class) forall Q
+            q = Q.new
+            with q yield q
+            {{key.id}}(q)
+            q
+          end
+        {% end %}
+        {% type = type[:type] %}
       {% end %}
+
+      def {{key.id}}({{key.id}} : {{type}})
+        self.{{key.id}} = {{key.id}}
+      end
     {% end %}
 
     def initialize
@@ -33,7 +39,6 @@ module Elasticsearch::DSL::Macro
       with self yield self
       self
     end
-
 
     def to_json(json : JSON::Builder)
       json.object {
