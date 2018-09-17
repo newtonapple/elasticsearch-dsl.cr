@@ -17,9 +17,17 @@ module Elasticsearch::DSL::Search
   end
 
   class Search
+    # Search request body parameters:
+    #   https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#_parameters_4
     Macro.mapping({
-      query:   {type: Queries::Base?, assign_with_yield: true},
-      _source: Array(String) | Bool | String?,
+      batched_reduce_size: Type::UInt?,
+      from:                Type::UInt?,
+      query:               {type: Queries::Base?, assign_with_yield: true},
+      size:                Type::UInt?,
+      stats:               Array(String)?,
+      terminate_after:     Type::UInt?,
+      timeout:             String?,
+      _source:             Array(String) | Bool | String?,
     })
 
     def query(q : Query::Base, &block)
