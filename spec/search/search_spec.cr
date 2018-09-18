@@ -6,18 +6,26 @@ describe Search do
     it "accepts standard request body parameters" do
       search {
         query(Match) { match "title", "hello" }
+        explain true
+        min_score 0.5
+        stored_fields ["tags"]
         from 0_u8
         size 200_u32
         batched_reduce_size 512_u32
         terminate_after 2000_u64
         timeout "500ms"
         stats ["group1", "group2"]
+        version true
         _source ["title", "body"]
       }.should eq_to_json <<-JSON
         {
           "query": { "match": {"title": "hello" } },
           "_source": ["title", "body"],
           "stats": ["group1", "group2"],
+          "explain": true,
+          "min_score": 0.5,
+          "version": true,
+          "stored_fields": ["tags"],
           "from": 0,
           "size": 200,
           "batched_reduce_size": 512,
