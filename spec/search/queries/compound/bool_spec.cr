@@ -13,11 +13,21 @@ describe BoolQuery do
 
             should(QueryString) {
               query "Will Sm*"
+              _name "default_field"
+            }
+
+            should(Match) {
+              match("title") {
+                query "jiggy wit it"
+                operator "and"
+                _name "title"
+              }
             }
 
             mp = MatchPhrase.new
             mp.match_phrase("lyrics") {
               query "on your mark ready set let's go"
+              _name "lyrics"
             }
             should(mp)
           }
@@ -32,13 +42,24 @@ describe BoolQuery do
               "should": [
                 {
                   "query_string": {
-                    "query": "Will Sm*"
+                    "query": "Will Sm*",
+                    "_name": "default_field"
+                  }
+                },
+                {
+                  "match": {
+                    "title": {
+                      "query": "jiggy wit it",
+                      "operator": "and",
+                      "_name": "title"
+                    }
                   }
                 },
                 {
                   "match_phrase": {
                     "lyrics": {
-                      "query": "on your mark ready set let's go"
+                      "query": "on your mark ready set let's go",
+                      "_name": "lyrics"
                     }
                   }
                 }

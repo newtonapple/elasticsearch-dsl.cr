@@ -28,6 +28,7 @@ module Elasticsearch::DSL::Search::Queries
       quote_analyzer:                      String?,
       tie_breaker:                         Type::Float?,
       type:                                String?,
+      _name:                               String?,
     })
   end
 end

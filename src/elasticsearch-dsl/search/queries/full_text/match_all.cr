@@ -2,6 +2,7 @@ module Elasticsearch::DSL::Search::Queries
   class MatchAll < Base
     Macro.mapping(match_all, {
       boost: Type::Number?,
+      _name: String?,
     })
 
     def match_all

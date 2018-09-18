@@ -6,6 +6,7 @@ module Elasticsearch::DSL::Search::Queries
     Macro.mapping_with_field_query(term, Type::Scalar, {
       boost: Type::Number?,
       value: Type::Scalar?,
+      _name: String?,
     })
   end
 end

@@ -12,6 +12,7 @@ module Elasticsearch::DSL::Search::Queries
       lt:        Type::Scalar?,
       lte:       Type::Scalar?,
       time_zone: String?,
+      _name:     String?,
     })
   end
 end

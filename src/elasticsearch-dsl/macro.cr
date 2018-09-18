@@ -82,7 +82,8 @@ module Elasticsearch::DSL::Macro
 
     alias Base = {{alter_type}} | Query
     property field : String?
-    property query :  Base?
+    property query : Base?
+    property _name : String?
 
     def initialize
     end
@@ -96,6 +97,7 @@ module Elasticsearch::DSL::Macro
         json.field "{{name.id}}" {
           json.object {
             json.field field, query
+            json.field("_name", self._name) if self._name
           }
         }
       }
@@ -116,6 +118,10 @@ module Elasticsearch::DSL::Macro
       self.field = field
       self.query = Query.new
       with @query.as(Query) yield @query
+    end
+
+    def _name(name : String)
+      self._name = name
     end
   end
 end

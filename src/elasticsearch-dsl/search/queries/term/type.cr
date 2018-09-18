@@ -1,4 +1,3 @@
-
 module Elasticsearch::DSL::Search::Queries
   #
   # Type Query API:
@@ -6,6 +5,7 @@ module Elasticsearch::DSL::Search::Queries
   class TypeQuery < Base
     Macro.mapping(type, {
       value: String?,
+      _name: String?,
     })
   end
 end

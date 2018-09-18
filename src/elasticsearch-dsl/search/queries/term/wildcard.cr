@@ -7,6 +7,7 @@ module Elasticsearch::DSL::Search::Queries
       boost:   Type::Number?,
       rewrite: String?,
       value:   String?,
+      _name:   String?,
     })
   end
 end

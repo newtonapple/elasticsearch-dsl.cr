@@ -6,6 +6,7 @@ module Elasticsearch::DSL::Search::Queries
       slop:             UInt8?,
       zero_terms_query: String?,
       max_expansions:   Type::UInt?,
+      _name:            String?,
     })
   end
 end

@@ -8,6 +8,7 @@ module Elasticsearch::DSL::Search::Queries
       flags:                   String?,
       max_determinized_states: Type::UInt?,
       value:                   String?,
+      _name:                   String?,
     })
   end
 end

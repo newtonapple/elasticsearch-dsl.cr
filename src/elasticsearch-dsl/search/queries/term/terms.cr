@@ -8,6 +8,7 @@ module Elasticsearch::DSL::Search::Queries
       index: String?,
       path:  String?,
       type:  String?,
+      _name: String?,
     })
   end
 end

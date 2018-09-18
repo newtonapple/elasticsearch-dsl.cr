@@ -8,6 +8,7 @@ module Elasticsearch::DSL::Search::Queries
       low_freq_operator:    String?,
       minimum_should_match: Type::Int | String | MinimumShouldMatch?,
       query:                String?,
+      _name:                String?,
     })
 
     def minimum_should_match

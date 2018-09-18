@@ -10,6 +10,7 @@ module Elasticsearch::DSL::Search::Queries
       prefix_length:  Type::UInt?,
       transpositions: Bool?,
       value:          String?,
+      _name:          String?,
     })
   end
 end

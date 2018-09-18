@@ -16,6 +16,7 @@ module Elasticsearch::DSL::Search::Queries
       tie_breaker:          Type::Float?,
       type:                 String?,
       zero_terms_query:     String?,
+      _name:                String?,
     })
   end
 end

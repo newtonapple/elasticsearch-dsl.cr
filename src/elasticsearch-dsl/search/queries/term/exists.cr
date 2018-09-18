@@ -5,6 +5,7 @@ module Elasticsearch::DSL::Search::Queries
   class Exists < Base
     Macro.mapping(exists, {
       field: String?,
+      _name: String?,
     })
   end
 end

@@ -7,6 +7,7 @@ module Elasticsearch::DSL::Search::Queries
       terms:                       Type::ScalarArray?, # TODO: confirm terms can be a number
       minimum_should_match_field:  String?,
       minimum_should_match_script: String?,
+      _name:                       String?,
     })
   end
 end

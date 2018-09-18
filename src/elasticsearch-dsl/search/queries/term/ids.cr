@@ -6,6 +6,7 @@ module Elasticsearch::DSL::Search::Queries
     Macro.mapping(ids, {
       type:   String?,
       values: Array(String)?,
+      _name:  String?,
     })
   end
 end

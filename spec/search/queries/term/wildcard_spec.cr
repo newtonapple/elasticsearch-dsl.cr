@@ -22,6 +22,7 @@ describe Wildcard do
             value "Crystal *"
             rewrite "constant_score"
             boost 3.14
+            _name "wildcard"
           }
         }
       }.should eq_to_json <<-JSON
@@ -31,7 +32,8 @@ describe Wildcard do
               "title": {
                 "boost": 3.14,
                 "rewrite": "constant_score",
-                "value": "Crystal *"
+                "value": "Crystal *",
+                "_name": "wildcard"
               }
             }
           }

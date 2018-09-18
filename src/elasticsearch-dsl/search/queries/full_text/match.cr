@@ -16,6 +16,7 @@ module Elasticsearch::DSL::Search::Queries
       slop:                 UInt8?,
       type:                 String?,
       zero_terms_query:     String?,
+      _name:                String?,
     })
   end
 end

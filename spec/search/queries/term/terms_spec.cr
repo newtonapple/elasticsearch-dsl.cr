@@ -5,12 +5,16 @@ describe Terms do
   describe "#to_json" do
     it "generates JSON for simple terms query" do
       search {
-        query(Terms) { terms "doc_id", [1337, 1234, 5678] }
+        query(Terms) {
+          terms "doc_id", [1337, 1234, 5678]
+          _name "doc_id"
+        }
       }.should eq_to_json <<-JSON
         {
           "query": {
             "terms": {
-              "doc_id": [1337, 1234, 5678]
+              "doc_id": [1337, 1234, 5678],
+              "_name": "doc_id"
             }
           }
         }
