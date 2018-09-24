@@ -1,3 +1,5 @@
+require "./sorting"
+
 module Elasticsearch::DSL::Search
   def search(&block)
     search = Search.new
@@ -28,6 +30,7 @@ module Elasticsearch::DSL::Search
       size:                Type::UInt?,
       stats:               Array(String)?,
       stored_fields:       Array(String) | String?,
+      sort:                Array(String | Sorting::Base) | Sorting::Base | String?,
       terminate_after:     Type::UInt?,
       timeout:             String?,
       version:             Bool?,
@@ -42,6 +45,9 @@ module Elasticsearch::DSL::Search
     def query
       with self yield self
     end
+
+    include Sorting::InstanceMethods
+
   end
 end
 

@@ -49,8 +49,9 @@ module Elasticsearch::DSL::Macro
     end
   end
 
-  macro mapping_with_field(name, properties)
+  macro mapping_with_field(properties)
     property field : String?
+
     Macro.mapping({{properties}})
 
     def initialize(field : String)
@@ -59,19 +60,27 @@ module Elasticsearch::DSL::Macro
 
     def to_json(json : JSON::Builder)
       json.object {
-        json.field "{{name.id}}" {
-          json.object {
-            json.field(field) {
-              previous_def(json)
-            }
-          }
+        json.field(field) {
+          previous_def(json)
         }
       }
     end
+  end
+
+  macro mapping_with_field(name, properties)
+    Macro.mapping_with_field({{properties}})
 
     def {{name.id}}(field : String)
       self.field = field
       with self yield self
+    end
+
+    def to_json(json : JSON::Builder)
+      json.object {
+        json.field "{{name.id}}" {
+          previous_def(json)
+        }
+      }
     end
   end
 
